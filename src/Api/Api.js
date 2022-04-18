@@ -1,17 +1,20 @@
 const ACCESS_KEY = "q_Lq0TSjkxLS8SGI1ccI_qDxLddRn5HI6ZkE2ZrTWuw";
-const API_URL = "https://api.unsplash.com/";
+const API_URL = "https://api.unsplash.com";
 class Api {
   constructor({ url, accessKey }) {
     this.url = url;
     this.accessKey = accessKey;
   }
 
-  search({ query }) {
-    return fetch(`${this.url}/search/photos?query=${query}`, {
-      headers: {
-        Authorization: `${this.accessKey}`,
-      },
-    }).then((response) => response.json());
+  search({ query, per_page = 12}) {
+    return fetch(
+      `${this.url}/search/photos?query=${query}&per_page=${per_page}`,
+      {
+        headers: {
+          Authorization: `Client-ID ${this.accessKey}`,
+        },
+      }
+    ).then((response) => response.json());
   }
 }
 const config = {
@@ -21,4 +24,4 @@ const config = {
 
 const api = new Api(config);
 
-export default Api;
+export default api;
